@@ -1,0 +1,6 @@
+interface:
+  display_name: "Personal Assistant Bootstrap"
+  short_description: "Set up a local Codex assistant"
+  default_prompt: "Use $codex-personal-assistant-bootstrap to set up my Codex Personal Assistant."
+policy:
+  allow_implicit_invocation: true

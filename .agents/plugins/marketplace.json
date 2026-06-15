@@ -1,0 +1,20 @@
+{
+  "name": "codex-personal-assistant",
+  "interface": {
+    "displayName": "Codex Personal Assistant"
+  },
+  "plugins": [
+    {
+      "name": "codex-personal-assistant-starter",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-personal-assistant-starter"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "codex-personal-assistant-starter",
+  "version": "0.1.0",
+  "description": "Starter plugin for setting up a local Codex Personal Assistant workspace.",
+  "author": {
+    "name": "Dougal Ballantyne"
+  },
+  "keywords": [
+    "codex",
+    "personal-assistant",
+    "onboarding",
+    "compounding-knowledge",
+    "mac",
+    "windows"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex Personal Assistant Starter",
+    "shortDescription": "Bootstrap a local Codex personal assistant.",
+    "longDescription": "Guides a Mac or Windows user through creating a local Codex Personal Assistant workspace, answering first-run onboarding questions, and producing reviewable context, state, workflow, and template files. The starter does not connect external systems or publish content without explicit user approval.",
+    "developerName": "Dougal Ballantyne",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills"
+    ],
+    "defaultPrompt": [
+      "Set up my Codex Personal Assistant.",
+      "Run the first-run assistant interview.",
+      "Create starter assistant files on my computer."
+    ],
+    "brandColor": "#2563EB"
+  }
+}
