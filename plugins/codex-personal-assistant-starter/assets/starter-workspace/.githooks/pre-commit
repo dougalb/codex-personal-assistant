@@ -1,0 +1,5 @@
+#!/bin/sh
+# Interactive guard only. Enrichment is scheduled by Codex, never by Git hooks.
+if git diff --cached --name-only | grep -q '^knowledge/'; then
+  python3 .codex/tools/knowledge_bundle.py lint || exit $?
+fi

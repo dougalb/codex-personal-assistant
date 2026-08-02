@@ -1,0 +1,6 @@
+interface:
+  display_name: "Personal Assistant Weekly Review"
+  short_description: "Review work and audit knowledge freshness"
+  default_prompt: "Use $codex-personal-assistant-weekly-review for my weekly review."
+policy:
+  allow_implicit_invocation: true

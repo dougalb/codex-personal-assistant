@@ -2,19 +2,12 @@
 
 ## Goal
 
-Create a short start-of-day brief from approved sources.
-
-## Inputs
-
-- Calendar source: [confirm]
-- Active work: `state/active-work.md`
-- Waiting-on list: `state/waiting-on.md`
-- Open questions: `state/open-questions.md`
+Create a concise source-grounded start-of-day brief without making final external changes.
 
 ## Steps
 
-1. Check approved sources only.
-2. Summarize today's commitments.
-3. Flag conflicts, deadlines, and decisions needed.
-4. List the top 3 next actions.
-5. Save the result in `outputs/YYYY-MM-DD-daily-brief.md`.
+1. Load action policy, active work, waiting-on, open questions, and `knowledge/index.md`.
+2. Read eligible sources, including today’s calendar commitments.
+3. Flag conflicts, deadlines, decisions, and the three highest-leverage next actions with source locators.
+4. Save `outputs/YYYY-MM-DD-daily-brief.md` and append a compact run record.
+5. Create only reversible drafts automatically. Ask once before any final external action.

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Personal Assistant Enrich"
+  short_description: "Enrich and checkpoint OKF knowledge"
+  default_prompt: "Use $codex-personal-assistant-enrich to update my personal assistant's durable knowledge."
+policy:
+  allow_implicit_invocation: true

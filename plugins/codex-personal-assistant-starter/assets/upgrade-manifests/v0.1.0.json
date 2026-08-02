@@ -1,0 +1,12 @@
+{
+  "files": {
+    "AGENTS.md": "0009db62b1c3dac83823f8b72cc086ccba093f23aa056ffd41e3d8863cb9ebfc",
+    "GETTING-STARTED.md": "19c613beb9d7035383f117d69d950e29afaddb5876c557843897ca85c61e6133",
+    "context/source-registry.md": "4c88b68a51db695ef76b6c18d4c1637377437eba9a5948aed2313d6c1dd0eb7a",
+    "workflows/daily-brief.md": "007f503f8b1d11d8a8ee7e387bc6e20d22e64bf1eeccb73b833ec5aa53b72c17",
+    "workflows/weekly-review.md": "0afa100aeca1df7bb3df6bbc049741d5e9f8042bcc942b767ccda0afb0af1dac"
+  },
+  "removed": {
+    "state/approval-ledger.md": "a70c9a363b2d4953826a02c29100421eed9703cac6bf8eb20d93080f1691c7a8"
+  }
+}

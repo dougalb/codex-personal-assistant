@@ -1,0 +1,6 @@
+interface:
+  display_name: "Personal Assistant Daily Brief"
+  short_description: "Create a source-grounded morning brief"
+  default_prompt: "Use $codex-personal-assistant-daily-brief for today's briefing."
+policy:
+  allow_implicit_invocation: true

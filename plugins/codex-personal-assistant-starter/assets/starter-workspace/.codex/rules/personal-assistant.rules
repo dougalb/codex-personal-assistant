@@ -1,0 +1,2 @@
+# Trusted project rule: checkpoint code is reviewed and only creates local Git commits.
+prefix_rule(pattern=["git", "pa-checkpoint"], decision="allow", justification="Validated assistant-owned local knowledge checkpoint; never pushes")

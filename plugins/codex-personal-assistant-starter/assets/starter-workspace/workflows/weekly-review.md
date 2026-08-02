@@ -2,12 +2,11 @@
 
 ## Goal
 
-Turn the week's work into a clearer next week.
+Turn the week into a clearer next week while auditing durable knowledge freshness.
 
 ## Steps
 
-1. Review `state/active-work.md`, `state/waiting-on.md`, and recent `outputs/`.
-2. Close completed items.
-3. Move stalled items into waiting-on or open questions.
-4. Identify the next 3 to 5 actions.
-5. Save the review in `outputs/YYYY-MM-DD-weekly-review.md`.
+1. Review active work, waiting-on, open questions, recent outputs, automation runs, and stale knowledge concepts.
+2. Create a reviewable `outputs/YYYY-MM-DD-weekly-review.md` with progress, risks, next actions, and unresolved contradictions.
+3. Route durable facts through verifier then the sole knowledge curator; do not directly promote output prose.
+4. Validate and use `git pa-checkpoint` only after safe durable changes. Never finalize external actions.

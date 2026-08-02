@@ -1,11 +1,13 @@
 # Source Registry
 
-| Source | What it is for | Access status | Authority | Notes |
-| --- | --- | --- | --- | --- |
-| [confirm source] | [confirm use] | Not connected | [confirm] | [confirm notes] |
+All authenticated connectors are readable by default. List explicit exclusions, source authority, and non-secret watermarks here; never store credentials or raw archives.
+
+| Source | What it is for | Access status | Authority | Excluded? | Notes |
+| --- | --- | --- | --- | --- | --- |
+| [confirm source] | [confirm use] | authenticated/readable | [confirm] | no | [confirm notes] |
 
 ## Access boundaries
 
-- Do not connect new sources without explicit approval.
-- Do not treat access as permission to take action.
-- Keep generated summaries separate from authoritative source material.
+- Authentication permits reading, not final external action.
+- Add an explicit exclusion here to prevent enrichment from reading a source.
+- Keep distilled knowledge separate from authoritative source material.

@@ -1,51 +1,34 @@
 # First-Run Interview
 
-Use these questions to populate the starter workspace. Ask in short batches and adapt to the user's answers.
+Ask in short batches. Record only user-confirmed information in `context/`; keep uncertainty in `state/open-questions.md`.
 
 ## Identity and work
 
-- What name should the assistant use for you?
-- What is your role or job title?
-- What teams, programs, customers, or communities do you support?
-- What are your recurring responsibilities?
-- What decisions do you make, recommend, or influence?
+- What name, role, responsibilities, teams, and recurring commitments should the assistant know?
+- What work deserves the most help this month?
+- What tone and level of detail make a useful answer?
 
-## Operating style
+## Operating loop
 
-- What kind of help do you want most: reminders, drafts, summaries, meeting prep, document review, decision support, or planning?
-- What tone should drafts use?
-- What should the assistant be skeptical about?
-- What should the assistant never do without asking?
-- What does a good final answer look like for you?
+- What timezone and working days should schedules use?
+- What time should the morning brief be ready, nightly enrichment run, and weekly review occur?
+- Which one workflow should prove value first?
 
-## Sources and systems
+## Sources and authority
 
-- Where do calendar commitments live?
-- Where do important messages live?
-- Where do documents live?
-- Where do project plans, tasks, or tickets live?
-- Which sources are authoritative when two sources disagree?
-- Which sources are off limits for now?
+- Which authenticated sources should be excluded from reading?
+- Where do calendar, email, tasks, documents, decisions, and project status live?
+- When sources conflict, which is authoritative?
+- What sensitive material must remain excluded even if a connector is authenticated?
 
-## People and commitments
+## External actions
 
-- Who are the most important stakeholders?
-- Who do you owe updates to?
-- Who owes you answers?
-- Which meetings or cadences matter every week?
-- What deadlines or recurring obligations should be tracked?
+- Confirm that the assistant may create reversible drafts (email drafts, attendee-free holds, task drafts).
+- Confirm that final sends, publication, purchases, credential/security changes, deletions, attendee additions, and committed external changes require one immediate confirmation.
+- Are there additional actions that always require confirmation?
 
-## Privacy and approvals
+## Git and trust
 
-- What information is sensitive and should stay local?
-- Which external systems can the assistant read after you approve access?
-- Which actions must always stay draft-only?
-- What needs your explicit approval before it is sent, posted, changed, or deleted?
-- Who else can approve changes when you are unavailable?
-
-## First workflow
-
-- What is one small workflow that would save time this week?
-- What source material is needed for that workflow?
-- What output would be useful enough to review?
-- How will you know the first assistant run worked?
+- Does `git config user.name` and `git config user.email` resolve for this repository?
+- Did the initial Git commit succeed? If not, should we complete the printed recovery step now?
+- Has the user trusted and reopened the project so `.codex` settings can apply?

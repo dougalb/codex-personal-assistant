@@ -1,68 +1,54 @@
 ---
 name: codex-personal-assistant-bootstrap
-description: Use when a user wants to set up a Codex Personal Assistant, bootstrap a local assistant workspace on Mac, run the first-run onboarding interview, create source-grounded context/state/workflow files, or learn how compounding knowledge should work in a personal Codex setup. Do not use for general productivity advice unrelated to Codex setup.
+description: Set up or upgrade a local autonomous, Git-backed Codex Personal Assistant workspace; run onboarding and create its local operating loop.
 ---
 
 # Codex Personal Assistant Bootstrap
 
-Use this skill to help a less technical Mac user create and start using a local Codex Personal Assistant workspace.
+Use this skill for first-run setup, a v0.1-to-v0.2 upgrade, or onboarding a new local personal-assistant repository.
 
-## Operating boundaries
+## Boundaries
 
-- Work locally first. Draft files in the user's chosen folder before proposing any external destination.
-- Do not send, publish, delete, modify, move, mark read/unread, or connect external systems unless the user explicitly approves that action.
-- Do not switch to Browser, Chrome, or Computer Use as a workaround for missing connector access.
-- Do not ask the user for secrets, tokens, passwords, private keys, recovery codes, or credential files.
-- Do not recommend separate third-party note vaults unless the user explicitly asks.
-- If a fact depends on a source file or connected system, mark it as unverified until checked.
+- Never request or store secrets, passwords, API keys, private keys, or recovery codes.
+- The bootstrap script initializes Git but never creates or pushes a remote.
+- Require the selected target to be a repository root; never silently reuse a parent repository or create a nested repository.
+- The assistant may read authenticated sources and create reversible drafts after onboarding, but must ask once before final external actions as defined in `context/action-policy.md`.
 
-## Default setup target
+## Setup
 
-If the user does not give a folder, propose:
-
-`~/Documents/Codex/Personal Assistant`
-
-For nontechnical users, explain paths in plain language and keep commands optional. If they approve the default folder, create it.
-
-## Bootstrap workflow
-
-1. Identify the target folder.
-   - Use the default above unless the user gives another location.
-   - If the folder already exists, preserve existing files and only add missing starter files.
-
-2. Create starter files.
-   - Resolve the plugin root as two directories above this `SKILL.md`.
-   - Run:
+1. Choose a target. Default: `~/Documents/Codex/Personal Assistant`.
+2. Run the bundled bootstrap script. Resolve plugin root as two directories above this `SKILL.md`.
 
 ```bash
 python3 <plugin-root>/scripts/bootstrap_personal_assistant.py --target "<target-folder>"
 ```
 
-3. Run the first-run interview.
-   - Read `references/first-run-interview.md`.
-   - Ask questions in small batches of 4 to 6.
-   - Accept short, imperfect answers.
-   - Use `[confirm ...]` placeholders rather than inventing details.
+Use `--dry-run` to preview, `--force` only to deliberately replace starter-managed files, and `--upgrade` for a prior v0.1 workspace. Upgrade preserves user-modified files and writes candidates to `archive/upgrade-review/v0.2.0`.
 
-4. Populate durable files.
-   - `context/profile.md`: who the user is, role, responsibilities, preferences.
-   - `context/source-of-truth.md`: which sources win for calendar, email, documents, tasks, decisions, and project status.
-   - `context/source-registry.md`: source list with access status and intended use.
-   - `context/stakeholders.md`: key people, teams, and relationship notes.
-   - `state/active-work.md`: current work, priority, next action, and confidence.
-   - `state/open-questions.md`: unknowns that need source material or user confirmation.
-   - `state/approval-ledger.md`: proposed and approved write actions.
+3. If Git identity is missing, give the exact recovery commands printed by the bootstrap script. Do not fabricate an initial commit.
+4. Ask the user to trust and reopen the generated project, because project-scoped `.codex` configuration, agents, and rules become active only then.
 
-5. Pick one first workflow.
-   - Recommend one narrow first workflow: daily brief, meeting prep, document review, communication draft, or weekly review.
-   - Run it with only local files unless the user explicitly connects a source.
+## Onboarding interview
 
-6. Finish with a compact handoff.
-   - List files created or updated.
-   - List open placeholders.
-   - Recommend the next single action.
-   - Keep confidence labels for important claims.
+Read `references/first-run-interview.md` and ask in small batches. Populate context only from user-confirmed answers. Confirm:
 
-## Compounding knowledge rule
+- Timezone, working days, and preferred morning-brief / nightly-enrichment / weekly-review times.
+- Git identity status and whether the initial checkpoint succeeded.
+- Connected sources, explicit exclusions, and authoritative source order.
+- The one-confirmation boundary for final external actions.
 
-Every useful run should leave one small durable improvement: a corrected fact, a better source link, a clearer workflow, an updated active-work item, a resolved open question, or a reusable template. Avoid long summaries that do not improve future runs.
+Authenticated connectors are readable by default unless the user excludes them. Keep `context/` curated; do not infer it from a source scan.
+
+## Automations
+
+After the project is trusted, use available scheduled-task tooling to create three **local-project** schedules in the selected timezone, all using Sol Medium:
+
+1. Morning brief: use `automations/morning-brief.md`.
+2. Nightly enrichment: use `automations/nightly-enrichment.md`.
+3. Weekly review/staleness audit: use `automations/weekly-review.md`.
+
+Memory-mutating tasks run serially in this repository, not disposable worktrees. Explain that the desktop app and computer must be running. If scheduled-task tooling is unavailable, retain the complete prompts in `automations/` and state plainly that schedules were not created.
+
+## Handoff
+
+Report the target, Git status, created/preserved files, source exclusions, action boundary, automation status, and the next useful workflow. Use `$codex-personal-assistant-operate` for ordinary work and `$codex-personal-assistant-enrich` for durable learning.

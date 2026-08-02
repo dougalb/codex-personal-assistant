@@ -1,7 +1,7 @@
 {
   "name": "codex-personal-assistant-starter",
-  "version": "0.1.0",
-  "description": "Starter plugin for setting up a local Codex Personal Assistant workspace.",
+  "version": "0.2.0+codex.20260802155626",
+  "description": "Autonomous, Git-backed, connector-first Codex Personal Assistant workspace.",
   "author": {
     "name": "Dougal Ballantyne"
   },
@@ -16,17 +16,17 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Codex Personal Assistant Starter",
-    "shortDescription": "Bootstrap a local Codex personal assistant.",
-    "longDescription": "Guides a Mac or Windows user through creating a local Codex Personal Assistant workspace, answering first-run onboarding questions, and producing reviewable context, state, workflow, and template files. The starter does not connect external systems or publish content without explicit user approval.",
+    "shortDescription": "Run an autonomous Git-backed personal assistant.",
+    "longDescription": "Creates a local, Git-backed Codex Personal Assistant with task-shaped multi-agent routing, OKF v0.2 durable knowledge, connector-first enrichment, reversible drafts, and local automations. It reads and drafts autonomously while requesting one confirmation before final external actions.",
     "developerName": "Dougal Ballantyne",
     "category": "Productivity",
     "capabilities": [
       "Skills"
     ],
     "defaultPrompt": [
-      "Set up my Codex Personal Assistant.",
-      "Run the first-run assistant interview.",
-      "Create starter assistant files on my computer."
+      "Set up my autonomous Git-backed Codex Personal Assistant.",
+      "Run the first-run assistant interview and schedule its local operating loop.",
+      "Enrich my assistant's OKF knowledge safely."
     ],
     "brandColor": "#2563EB"
   }

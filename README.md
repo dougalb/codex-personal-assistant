@@ -1,59 +1,39 @@
-# Codex Personal Assistant Starter
+# Codex Personal Assistant
 
-This repository is a Codex plugin marketplace for the Codex Personal Assistant Starter.
+This marketplace provides an autonomous, Git-backed, connector-first personal assistant operating system for Codex. It is designed to rehydrate from local repository state rather than depend on one long-lived chat.
 
-The starter helps a user create a local, review-first personal assistant workspace for recurring knowledge work. It includes a first-run setup workflow, starter workspace files, templates, and safety defaults for approval-led work.
+## What 0.2 provides
 
-## Add This Marketplace To Codex
+- Sol Medium orchestration, with Luna High for bounded worker tasks, Terra High for ambiguity/verification, and Sol High for exceptional review.
+- Broad ordinary permissions: reading authenticated sources, network access, workspace edits, and reversible drafts proceed unattended.
+- One immediate confirmation before a final send, publication, purchase, credential/security change, deletion, attendee addition, or committed external mutation.
+- A local Git repository, validated `git pa-checkpoint`, interactive lint hook, and `git revert` rollback path. It never creates or pushes a remote.
+- An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)-compatible, distilled knowledge bundle with provenance, freshness, progressive disclosure, watermarks, and a single durable-memory writer.
+- Morning brief, nightly enrichment, and weekly review prompts for local Codex scheduled tasks.
 
-From Codex:
+## Install and start
 
-1. Open `Plugins`.
-2. Choose `More`.
-3. Choose `Add more`.
-4. Choose `Add marketplace`.
-5. Use this repository folder or GitHub URL as the source.
-6. Install `Codex Personal Assistant Starter`.
-
-After installation, start a new Codex thread and ask:
+Add this repository as a Codex marketplace, install **Codex Personal Assistant Starter**, then open a new thread and ask:
 
 ```text
-Set up my Codex Personal Assistant.
+Set up my autonomous Git-backed Codex Personal Assistant.
 ```
 
-CLI users can add the local checkout as a marketplace:
+The bootstrap defaults to `~/Documents/Codex/Personal Assistant`, initializes Git when absent, and only creates an initial local commit when the configured Git identity is available. Existing 0.1 workspaces can use `--upgrade`; changed user files are preserved with incoming candidates under `archive/upgrade-review/v0.2.0`.
 
-```sh
-codex plugin marketplace add /path/to/codex-personal-assistant
-```
+After bootstrap, trust and reopen the project so its `.codex` configuration, project agents, and narrowly scoped checkpoint rule become active. Local schedules require the Codex desktop app and computer to be running.
 
-If the installed Codex CLI supports plugin installation, the plugin ID is:
-
-```text
-codex-personal-assistant-starter@codex-personal-assistant
-```
-
-## Repository Layout
+## Repository layout
 
 ```text
 .agents/plugins/marketplace.json
 plugins/codex-personal-assistant-starter/
 ```
 
-The marketplace metadata points Codex at `plugins/codex-personal-assistant-starter`.
+The marketplace metadata points Codex to `plugins/codex-personal-assistant-starter`.
 
-## What The Starter Provides
+## Knowledge and safety
 
-- A bootstrap skill for first-run setup.
-- A guided interview for profile, responsibilities, sources, stakeholders, approvals, and first workflows.
-- A starter local workspace structure.
-- Templates for active work, open questions, waiting-on items, approvals, decisions, run summaries, and recurring workflows.
-- Review-first defaults for external systems.
+`context/` stays curated and is never changed merely from inference. `state/` tracks volatile work, watermarks, and questions. `knowledge/` is the OKF bundle: only distilled facts and source locators, never raw connector archives. Parallel workers only extract and verify; `pa_knowledge_curator` is the sole writer.
 
-## Safety Defaults
-
-- Keep setup local first.
-- Do not store secrets or credentials in the assistant workspace.
-- Treat generated summaries and drafts as review material.
-- Keep final approval in the destination app.
-- Add external connectors only after the user understands the source and action boundary.
+The plugin does not bundle a vector database, embedding service, generic RAG layer, third-party OKF CLI, raw connector archive, automatic post-commit model call, worktrees for memory, or remote Git publishing.

@@ -1,0 +1,19 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "high"
+
+[apps._default]
+enabled = true
+open_world_enabled = true
+destructive_enabled = false
+default_tools_approval_mode = "approve"

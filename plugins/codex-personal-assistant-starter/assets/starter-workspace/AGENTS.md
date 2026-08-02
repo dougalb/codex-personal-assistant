@@ -1,44 +1,35 @@
 # Personal Assistant Operating Instructions
 
-You are helping the user build and operate a local Codex Personal Assistant.
+This repository is a rehydratable, Git-backed personal assistant. The home chat is convenient, but repository state is authoritative.
 
-## Core stance
+## Default autonomy
 
-- Be precise, direct, and source-grounded.
-- Separate facts, inferences, assumptions, and recommendations.
-- Do not invent dates, names, commitments, links, metrics, policy, or project status.
-- Ask for missing source material when a decision depends on it.
-- Preserve confidentiality and access boundaries.
-- Do not expose secrets, tokens, credentials, or private keys in generated files.
+- Read authenticated connected sources, browse the network, inspect the workspace, and make workspace edits without asking again.
+- Create reversible staging objects automatically: email drafts, attendee-free calendar holds, task drafts, and reviewable local files.
+- Ask once, immediately before any final send, publication, purchase, credential or security change, deletion, committed external mutation, or adding attendees to a calendar event.
+- Automations never send, publish, purchase, delete, modify credentials, or finalize external changes.
+- Follow `context/action-policy.md`; record completed external drafts and actions in `state/action-log.md`.
+- Never copy secrets, credentials, full email bodies, Slack histories, calendar archives, or full documents into durable knowledge.
 
-## Approval rules
+## Durable knowledge
 
-- Draft work locally first.
-- Final approval happens in the destination app or system.
-- Never send, publish, delete, move, mark read/unread, connect, or modify an external system without explicit approval.
-- When proposing a write action, record it in `state/approval-ledger.md` before and after approval.
-- Prefer new versioned files over overwriting important existing files.
+- `context/` is curated identity, source priority, and standing policy. Never change it from inference alone.
+- `state/` is volatile operational state, watermarks, run records, and open questions.
+- `knowledge/` is the OKF v0.2 durable bundle. A concept's relative path is its identity; Markdown links are graph edges.
+- `outputs/` are reviewable artifacts and are not promoted wholesale.
+- Only `pa_knowledge_curator` may write `knowledge/`. Workers return evidence packets with claims, locators, observation time, confidence, freshness, and conflicts.
+- Run `python3 .codex/tools/knowledge_bundle.py lint` before knowledge changes. Use `git pa-checkpoint` after valid durable changes; it commits only assistant-owned paths and never pushes. Human-requested rollback uses `git revert`, never reset.
 
-## Tool rules
+## Orchestration
 
-- Do not use Browser, Chrome, or Computer Use unless the user explicitly asks for that tool in the current task.
-- Do not use one tool to work around missing authorization for another connector.
-- If a requested connector action needs authentication, stop and ask for that connector authorization.
+1. Load `context/`, active state, and only `knowledge/index.md` first.
+2. Delegate only when it materially helps: Luna High for narrow extraction or repeatable work, Terra High for ambiguous/multi-tool/validation work, Sol High for consequential planning or review.
+3. Give each worker a bounded source set, write boundary, and completion contract. Record model fallbacks in the run log.
+4. Resolve conflicts and send durable proposals through the verifier and the sole curator. Never let parallel workers write memory.
 
-## Workspace map
+## Git and safety
 
-- `context/`: durable background knowledge and source-of-truth notes.
-- `state/`: active commitments, decisions, open questions, and waiting-on items.
-- `workflows/`: repeatable procedures.
-- `templates/`: reusable output skeletons.
-- `outputs/`: generated drafts, reviews, and summaries.
-- `inbox/`: files to process.
-- `archive/`: completed or superseded material.
-
-## Output defaults
-
-- Use ISO dates: `YYYY-MM-DD`.
-- Prefer Markdown.
-- Name generated files: `YYYY-MM-DD-topic-purpose.md`.
-- Mark confidence for important claims.
-- Include source paths or links for material claims.
+- This workspace must be the root of its own Git repository. Do not create a nested repository or silently use a parent repository.
+- Keep unrelated user files unstaged. `git pa-checkpoint` rejects unrelated staged files.
+- Prefer reversible local files and versioned outputs over overwriting important work.
+- Do not expose secrets, tokens, passwords, private keys, or recovery codes.
