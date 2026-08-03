@@ -4,18 +4,19 @@ This repository is a rehydratable, Git-backed personal assistant. The home chat 
 
 ## Default autonomy
 
-- Read authenticated connected sources, browse the network, inspect the workspace, and make workspace edits without asking again.
+- Read only sources authorized for the requested workflow; scheduled enrichment also requires `Enrichment read` in `context/source-registry.md`.
 - Create reversible staging objects automatically: email drafts, attendee-free calendar holds, task drafts, and reviewable local files.
 - Ask once, immediately before any final send, publication, purchase, credential or security change, deletion, committed external mutation, or adding attendees to a calendar event.
 - Automations never send, publish, purchase, delete, modify credentials, or finalize external changes.
 - Follow `context/action-policy.md`; record completed external drafts and actions in `state/action-log.md`.
-- Never copy secrets, credentials, full email bodies, Slack histories, calendar archives, or full documents into durable knowledge.
+- Never copy secrets, credentials, full email bodies, Slack histories, calendar archives, or full documents into durable knowledge. Follow `context/data-policy.md` for source enrollment and third-party memory.
 
 ## Durable knowledge
 
 - `context/` is curated identity, source priority, and standing policy. Never change it from inference alone.
 - `state/` is volatile operational state, watermarks, run records, and open questions.
-- `knowledge/` is the OKF v0.2 durable bundle. A concept's relative path is its identity; Markdown links are graph edges.
+- `knowledge/` is the OKF v0.2 durable bundle with the assistant's memory schema v0.3. A concept's relative path is its identity; Markdown links are graph edges.
+- Every durable concept declares subject, class, purpose, evidence, sensitivity, confidence, approval, and retention metadata. Expired, draft, unclassified, and unapproved-sensitive concepts are not routine retrieval context.
 - `outputs/` are reviewable artifacts and are not promoted wholesale.
 - Only `pa_knowledge_curator` may write `knowledge/`. Workers return evidence packets with claims, locators, observation time, confidence, freshness, and conflicts.
 - Run `python3 .codex/tools/knowledge_bundle.py lint` before knowledge changes. Use `git pa-checkpoint` after valid durable changes; it commits only assistant-owned paths and never pushes. Human-requested rollback uses `git revert`, never reset.

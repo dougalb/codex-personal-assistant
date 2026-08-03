@@ -1,5 +1,6 @@
 {
-  "schema_version": "0.2",
+  "schema_version": "0.3",
+  "memory_schema_version": "0.3",
   "last_successful_commit": null,
   "last_successful_run": null,
   "local_watermark": "1970-01-01T00:00:00Z",

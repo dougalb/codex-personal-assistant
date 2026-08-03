@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -19,6 +20,8 @@ from pathlib import Path
 
 
 DEFAULT_TARGET = Path.home() / "Documents" / "Codex" / "Personal Assistant"
+CURRENT_WORKSPACE_VERSION = "0.3"
+CURRENT_UPGRADE_VERSION = "v0.3.0"
 GIT_EXECUTABLE = shutil.which("git") or ("/usr/bin/git" if Path("/usr/bin/git").exists() else "git")
 
 
@@ -56,8 +59,20 @@ def verify_repository_boundary(target: Path) -> Path | None:
     return root
 
 
-def load_upgrade_manifest(source: Path) -> dict[str, object]:
-    path = source.parent / "upgrade-manifests" / "v0.1.0.json"
+def workspace_schema_version(target: Path) -> str | None:
+    checkpoint = target / "state" / "knowledge-checkpoint.json"
+    if not checkpoint.exists():
+        return None
+    try:
+        return str(json.loads(checkpoint.read_text(encoding="utf-8")).get("schema_version"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def load_upgrade_manifest(source: Path, target: Path) -> dict[str, object]:
+    prior_version = workspace_schema_version(target)
+    manifest_name = "v0.2.0.json" if prior_version == "0.2" else "v0.1.0.json"
+    path = source.parent / "upgrade-manifests" / manifest_name
     if not path.exists():
         return {"files": {}, "removed": {}}
     return json.loads(path.read_text(encoding="utf-8"))
@@ -68,10 +83,10 @@ def copy_starter(source: Path, target: Path, force: bool, upgrade: bool, dry_run
     preserved: list[Path] = []
     review: list[Path] = []
     removed: list[Path] = []
-    prior = load_upgrade_manifest(source)
+    prior = load_upgrade_manifest(source, target)
     old_files: dict[str, str] = dict(prior.get("files", {}))
     old_removed: dict[str, str] = dict(prior.get("removed", {}))
-    review_root = target / "archive" / "upgrade-review" / "v0.2.0"
+    review_root = target / "archive" / "upgrade-review" / CURRENT_UPGRADE_VERSION
 
     for item in sorted(source.rglob("*")):
         if item.is_dir():
@@ -117,7 +132,7 @@ def copy_starter(source: Path, target: Path, force: bool, upgrade: bool, dry_run
             report = review_root / "MIGRATION-REPORT.md"
             report.parent.mkdir(parents=True, exist_ok=True)
             report.write_text(
-                "# Codex Personal Assistant 0.2 upgrade review\n\n"
+                "# Codex Personal Assistant 0.3 upgrade review\n\n"
                 "The existing files below differed from the shipped 0.1.0 versions and were preserved. "
                 "Review each adjacent `.incoming` candidate before merging it.\n\n"
                 + "".join(f"- `{path.as_posix()}`\n" for path in sorted(set(review)))
@@ -185,12 +200,41 @@ def initial_commit(target: Path, managed: list[Path]) -> tuple[bool, str]:
     return True, "Created initial Git commit containing only generated assistant files."
 
 
+def migrate_v02_workspace(target: Path) -> tuple[bool, str]:
+    tool = target / ".codex" / "tools" / "knowledge_bundle.py"
+    result = subprocess.run(
+        [sys.executable, str(tool), "--root", str(target), "migrate", "--from", "0.2"],
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode:
+        return False, result.stderr.strip() or result.stdout.strip() or "Memory schema migration failed."
+    checkpoint = target / "state" / "knowledge-checkpoint.json"
+    if checkpoint.exists():
+        state = json.loads(checkpoint.read_text(encoding="utf-8"))
+        state["schema_version"] = CURRENT_WORKSPACE_VERSION
+        state["memory_schema_version"] = CURRENT_WORKSPACE_VERSION
+        checkpoint.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    index = target / "knowledge" / "index.md"
+    if index.exists():
+        text = index.read_text(encoding="utf-8")
+        if "memory_schema_version:" in text:
+            text = re.sub(r"^memory_schema_version:.*$", f'memory_schema_version: "{CURRENT_WORKSPACE_VERSION}"', text, count=1, flags=re.MULTILINE)
+        else:
+            marker = "\n---\n"
+            end = text.find(marker, 4)
+            if end >= 0:
+                text = text[:end] + f'\nmemory_schema_version: "{CURRENT_WORKSPACE_VERSION}"' + text[end:]
+        index.write_text(text, encoding="utf-8")
+    return True, result.stdout.strip()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Create or upgrade a Codex Personal Assistant workspace.")
     parser.add_argument("--target", default=str(DEFAULT_TARGET), help="Destination assistant repository root.")
     parser.add_argument("--force", action="store_true", help="Replace existing starter-managed files.")
     parser.add_argument("--dry-run", action="store_true", help="Show actions without writing or initializing Git.")
-    parser.add_argument("--upgrade", action="store_true", help="Safely migrate a 0.1 workspace to 0.2.")
+    parser.add_argument("--upgrade", action="store_true", help="Safely upgrade an existing assistant workspace to 0.3.")
     args = parser.parse_args()
     if args.force and args.upgrade:
         parser.error("--force and --upgrade cannot be used together")
@@ -218,6 +262,7 @@ def main() -> int:
         print("Would initialize Git." if existing_root is None else f"Would use repository: {existing_root}")
         return 0
 
+    prior_schema = workspace_schema_version(target)
     initialized = False
     if existing_root is None:
         init = run_git(target, "init")
@@ -228,12 +273,19 @@ def main() -> int:
         existing_root = target
 
     result = copy_starter(source, target, args.force, args.upgrade, False)
+    if args.upgrade and prior_schema == "0.2":
+        migrated, migration_message = migrate_v02_workspace(target)
+        if not migrated:
+            print(migration_message, file=sys.stderr)
+            return 2
+        if migration_message:
+            print(migration_message)
     notes = configure_project_git(target)
     print(f"Target: {target}")
     print(f"Created or replaced: {len(result.created)} files")
     print(f"Preserved existing: {len(result.preserved)} files")
     if result.review:
-        print(f"Upgrade review candidates: {len(result.review)} (archive/upgrade-review/v0.2.0)")
+        print(f"Upgrade review candidates: {len(result.review)} (archive/upgrade-review/{CURRENT_UPGRADE_VERSION})")
     if result.removed:
         print(f"Retired unmodified legacy files: {len(result.removed)}")
     for note in notes:

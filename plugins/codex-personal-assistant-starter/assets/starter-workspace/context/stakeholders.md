@@ -8,3 +8,4 @@
 
 - Add only information the user is comfortable keeping in this local workspace.
 - Keep commitments in `state/active-work.md` or `state/waiting-on.md`.
+- Keep this curated file limited to user-confirmed relationship context. Source-derived people facts belong in `knowledge/` with v0.3 subject, evidence, sensitivity, purpose, and retention metadata.

@@ -3,7 +3,7 @@ type: "Log"
 title: "Personal assistant knowledge semantic log"
 description: "Append-only semantic history of validated durable knowledge changes."
 status: "active"
-generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.2.0"}
+generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.3.0"}
 sources: []
 tags: ["history", "okf"]
 ---

@@ -2,7 +2,8 @@
 
 ## Standing permissions
 
-- Read all authenticated connectors unless excluded in `context/source-registry.md`.
+- Read sources for requested tasks only when `context/source-registry.md` grants `Task read`.
+- Run scheduled enrichment only for sources with `Enrichment read` enabled and eligible memory classes listed.
 - Read the local workspace, use network access, and create or edit local files.
 - Create reversible drafts: unsent email drafts, attendee-free calendar holds, task drafts, and equivalent staged objects.
 
@@ -17,3 +18,5 @@ Automations may read, summarize, enrich, draft, and checkpoint local knowledge. 
 ## Durable records
 
 Record completed external drafts and approved final external actions in `state/action-log.md`. This policy is authoritative over an inferred preference.
+
+Memory promotion is governed separately by `context/data-policy.md` and the concept's `memory` frontmatter.

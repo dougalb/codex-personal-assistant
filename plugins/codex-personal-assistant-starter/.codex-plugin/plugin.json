@@ -1,6 +1,6 @@
 {
   "name": "codex-personal-assistant-starter",
-  "version": "0.2.0+codex.20260802155626",
+  "version": "0.3.0+codex.20260802155626",
   "description": "Autonomous, Git-backed, connector-first Codex Personal Assistant workspace.",
   "author": {
     "name": "Dougal Ballantyne"
@@ -17,7 +17,7 @@
   "interface": {
     "displayName": "Codex Personal Assistant Starter",
     "shortDescription": "Run an autonomous Git-backed personal assistant.",
-    "longDescription": "Creates a local, Git-backed Codex Personal Assistant with task-shaped multi-agent routing, OKF v0.2 durable knowledge, connector-first enrichment, reversible drafts, and local automations. It reads and drafts autonomously while requesting one confirmation before final external actions.",
+    "longDescription": "Creates a local, Git-backed Codex Personal Assistant with task-shaped multi-agent routing, OKF v0.2 durable knowledge, memory-schema v0.3 governance, source-enrolled enrichment, reversible drafts, attention calibration, and local automations. It reads and drafts autonomously while requesting one confirmation before final external actions.",
     "developerName": "Dougal Ballantyne",
     "category": "Productivity",
     "capabilities": [
