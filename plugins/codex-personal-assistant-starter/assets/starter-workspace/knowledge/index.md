@@ -3,7 +3,8 @@ type: "Index"
 title: "Personal assistant knowledge index"
 description: "Progressive-disclosure entry point for durable, distilled personal-assistant knowledge."
 status: "active"
-generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.2.0"}
+generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.3.0"}
+memory_schema_version: "0.3"
 sources: []
 tags: ["progressive-disclosure", "okf"]
 ---

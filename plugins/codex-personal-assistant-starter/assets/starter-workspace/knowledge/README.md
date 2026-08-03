@@ -3,10 +3,11 @@ type: "System"
 title: "Knowledge bundle operating model"
 description: "Distilled, provenance-backed OKF v0.2 knowledge for the personal assistant."
 status: "active"
-generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.2.0"}
+generated: {"at": "2026-08-02T00:00:00Z", "by": "codex-personal-assistant/0.3.0"}
 sources: [{"resource": "context/action-policy.md", "title": "Assistant action policy"}]
 tags: ["okf", "governance"]
 verified: [{"at": "2026-08-02T00:00:00Z", "by": "system", "trust": "generated"}]
+memory: {"subject": {"kind": "system", "id": "knowledge-bundle"}, "class": "operating_rule", "purpose": ["general_assistance"], "evidence_kind": "direct_source", "confidence": "high", "sensitivity": "standard", "retention": {"review_at": "2027-08-02", "expires_at": null}, "approval": {"status": "not_required"}}
 ---
 # Knowledge bundle
 

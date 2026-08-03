@@ -16,6 +16,9 @@ ALLOWED_FILES = {
     "state/automation-runs.md",
     "state/open-questions.md",
     "state/action-log.md",
+    "state/memory-approvals.json",
+    "state/attention-events.json",
+    "state/attention-calibration.json",
 }
 GIT_EXECUTABLE = shutil.which("git") or ("/usr/bin/git" if Path("/usr/bin/git").exists() else "git")
 

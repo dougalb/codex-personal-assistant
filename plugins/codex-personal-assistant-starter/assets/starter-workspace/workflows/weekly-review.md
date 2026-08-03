@@ -6,7 +6,7 @@ Turn the week into a clearer next week while auditing durable knowledge freshnes
 
 ## Steps
 
-1. Review active work, waiting-on, open questions, recent outputs, automation runs, and stale knowledge concepts.
-2. Create a reviewable `outputs/YYYY-MM-DD-weekly-review.md` with progress, risks, next actions, and unresolved contradictions.
+1. Review active work, waiting-on, open questions, recent outputs, automation runs, stale and expired memory concepts, pending sensitive approvals, attention calibration, and source watermarks.
+2. Create a reviewable `outputs/YYYY-MM-DD-weekly-review.md` with progress, risks, next actions, unresolved contradictions, missed-important-item rate, correction rate, and guardrail status.
 3. Route durable facts through verifier then the sole knowledge curator; do not directly promote output prose.
 4. Validate and use `git pa-checkpoint` only after safe durable changes. Never finalize external actions.

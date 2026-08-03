@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.3",
+  "minimum_adjudicated_events": 20,
+  "missed_important_rate_guardrail": 0.02,
+  "correction_rate_guardrail": 0.05,
+  "last_rollup": null,
+  "metrics": {
+    "window_days": 30,
+    "interruptions": 0,
+    "accepted_interruptions": 0,
+    "corrections": 0,
+    "missed_important_items": 0,
+    "adjudicated_events": 0
+  }
+}

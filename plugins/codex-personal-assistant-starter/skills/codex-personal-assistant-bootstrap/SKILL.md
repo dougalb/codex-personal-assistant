@@ -5,7 +5,7 @@ description: Set up or upgrade a local autonomous, Git-backed Codex Personal Ass
 
 # Codex Personal Assistant Bootstrap
 
-Use this skill for first-run setup, a v0.1-to-v0.2 upgrade, or onboarding a new local personal-assistant repository.
+Use this skill for first-run setup, a v0.2-to-v0.3 memory-schema upgrade, or onboarding a new local personal-assistant repository.
 
 ## Boundaries
 
@@ -23,7 +23,7 @@ Use this skill for first-run setup, a v0.1-to-v0.2 upgrade, or onboarding a new 
 python3 <plugin-root>/scripts/bootstrap_personal_assistant.py --target "<target-folder>"
 ```
 
-Use `--dry-run` to preview, `--force` only to deliberately replace starter-managed files, and `--upgrade` for a prior v0.1 workspace. Upgrade preserves user-modified files and writes candidates to `archive/upgrade-review/v0.2.0`.
+Use `--dry-run` to preview, `--force` only to deliberately replace starter-managed files, and `--upgrade` for a prior v0.2 workspace. Upgrade preserves user-modified files, quarantines unclassified concepts, and writes candidates to `archive/upgrade-review/v0.3.0`.
 
 3. If Git identity is missing, give the exact recovery commands printed by the bootstrap script. Do not fabricate an initial commit.
 4. Ask the user to trust and reopen the generated project, because project-scoped `.codex` configuration, agents, and rules become active only then.
@@ -34,10 +34,10 @@ Read `references/first-run-interview.md` and ask in small batches. Populate cont
 
 - Timezone, working days, and preferred morning-brief / nightly-enrichment / weekly-review times.
 - Git identity status and whether the initial checkpoint succeeded.
-- Connected sources, explicit exclusions, and authoritative source order.
+- Connected sources, explicit exclusions, task-read versus enrichment-read permissions, eligible memory classes, and authoritative source order.
 - The one-confirmation boundary for final external actions.
 
-Authenticated connectors are readable by default unless the user excludes them. Keep `context/` curated; do not infer it from a source scan.
+Authentication does not grant enrichment or durable-learning permission. Keep `context/` curated; do not infer it from a source scan.
 
 ## Automations
 
